@@ -19,7 +19,11 @@ export default function card(props) {
                         <span style={{ fontSize: 12 }}>Feedback</span>
                         <p>Send Message</p>
                     </div>
-                    <div className="card-body">{card.text}</div>
+                    <div className="card-body">
+                        {card.text}
+                        <hr/>
+                        {card.picture ? (<img src={card.picture.imagePreviewUrl} alt='' />) : null}
+                    </div>
                     <div className="card-footer" style={{ fontSize: 12, textAlign: "right" }}>Next Step</div>
                 </div>
             ))}

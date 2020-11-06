@@ -1,4 +1,5 @@
 import React from 'react'
+import ImageUploader from './imageUploader';
 
 export default function modal(props) {
     let { card, handleChange, setCard, setShowModal, showModal } = props;
@@ -14,7 +15,8 @@ export default function modal(props) {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <input placeholder="Enter Your Text ..." value={card.text ? card.text : ''} onChange={(e) => { handleChange(e) }} />
+                                <input type='text' placeholder="Enter Your Text ..." value={card.text ? card.text : ''} onChange={(e) => { handleChange(e) }} />
+                                <ImageUploader card={card} setCard={setCard} handleChange={handleChange} />
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={() => { setShowModal(false); setCard({}) }}>Close</button>
