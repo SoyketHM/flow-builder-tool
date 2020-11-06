@@ -2,10 +2,33 @@ import React, { useState } from 'react';
 
 function Home() {
     const [cards, setCards] = useState([{ id: 1, text: 'Add Text' }]);
+    const [card, setCard] = useState({});
     const [showModal, setShowModal] = useState(false);
     const addcard = () => {
-        setCards([...cards, { id: cards.length + 1, text: 'Add Text' }]);
-        setShowModal(true)
+        let cardId = cards.length + 1;
+        setCards([...cards, { id: cardId, text: 'Add Text' }]);
+        // setShowModal(true)
+        openModal(cardId);
+    }
+    const openModal = (id) => {
+        let text = '';
+        let index = cards.findIndex(el => el.id === id);
+        if (index !== -1) {
+            text = cards[index].text;
+        }
+        setCard({ id, text });
+        setShowModal(!showModal)
+    }
+    const handleChange = (e) => {
+        let newCard = {
+            id: card.id,
+            text: e.target.value
+        };
+        setCard(newCard);
+        let index = cards.findIndex(el => el.id === card.id);
+        if (index !== -1) {
+            cards[index].text = card.text;
+        }
     }
     return (
         <div className="container">
@@ -19,7 +42,7 @@ function Home() {
                 <div className="card-footer" style={{ fontSize: 12, textAlign: "right" }}>The First Step</div>
             </div>
             {cards.map((card, index) => (
-                <div className="card" style={{ width: 300, margin: 20, cursor: "pointer" }} key={card.id} onClick={() => setShowModal(true)}>
+                <div className="card" style={{ width: 300, margin: 20, cursor: "pointer" }} key={card.id} onClick={() => openModal(card.id)}>
                     <div className="card-header d-flex flex-column">
                         <i className="fab fa-facebook-messenger" style={{ color: "#18dede", fontSize: 24 }}></i>
                         <span style={{ fontSize: 12 }}>Feedback</span>
@@ -34,13 +57,12 @@ function Home() {
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
-
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => setShowModal(false)}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
+                                <input placeholder="Enter Your Text ..." value={card.text ? card.text : ''} onChange={(e) => { handleChange(e) }} />
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-
