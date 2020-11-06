@@ -39,10 +39,10 @@ function Home() {
             } else {
                 let reader = new FileReader();
                 reader.onloadend = () => {
-                    cards[index].picture = {
+                    cards[index].picture = [...card.picture, {
                         file: e.target.files[0],
                         imagePreviewUrl: reader.result
-                    }
+                    }]
                 }
                 reader.readAsDataURL(e.target.files[0])
             }

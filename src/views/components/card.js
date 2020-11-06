@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function card(props) {
-    let {cards, openModal, setShowModal} = props;
+    let { cards, openModal, setShowModal } = props;
     return (
         <div>
             <div className="card" style={{ width: 300, margin: 20, cursor: "pointer" }} onClick={() => setShowModal(true)}>
@@ -21,8 +21,16 @@ export default function card(props) {
                     </div>
                     <div className="card-body">
                         {card.text}
-                        <hr/>
-                        {card.picture ? (<img src={card.picture.imagePreviewUrl} alt='' />) : null}
+                        {card.picture ? card.picture.map((pic, index) => {
+                            if (pic.imagePreviewUrl) {
+                                return (
+                                    <div key={index}>
+                                        <hr />
+                                        <img src={pic.imagePreviewUrl} alt='' />
+                                    </div>
+                                );
+                            }
+                        }) : null}
                     </div>
                     <div className="card-footer" style={{ fontSize: 12, textAlign: "right" }}>Next Step</div>
                 </div>
